@@ -1,32 +1,19 @@
-import argparse
-import sys
-import traceback
-
-from agent.graph import agent
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Run engineering project planner")
-    parser.add_argument("--recursion-limit", "-r", type=int, default=100,
-                        help="Recursion limit for processing (default: 100)")
-
-    args = parser.parse_args()
-
-    try:
-        user_prompt = input("Enter your project prompt: ")
-        result = agent.invoke(
-            {"user_prompt": user_prompt},
-            {"recursion_limit": args.recursion_limit}
-        )
-        print("Final State:", result)
-    except KeyboardInterrupt:
-        print("\nOperation cancelled by user.")
-        sys.exit(0)
-    except Exception as e:
-        traceback.print_exc()
-        print(f"Error: {e}", file=sys.stderr)
-        sys.exit(1)
-
+from web.interface import demo
 
 if __name__ == "__main__":
-    main()
+    print("=" * 60)
+    print("SentraAI")
+    print("=" * 60)
+    print("Initializing project directory...")
+    print("\nLaunching web interface...")
+    print("Server will start at: http://localhost:7860")
+    print("Please wait for the server to start...\n")
+    print("=" * 60)
+
+    # Launch the Gradio interface
+    demo.launch(
+        server_port=7860,
+        server_name="0.0.0.0",  # Allow external access
+        share=False,  # Set to True for public link
+        show_error=True
+    )

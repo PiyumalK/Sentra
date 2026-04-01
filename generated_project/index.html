@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div id="calculator">
+        <div id="display" class="display" aria-live="polite"></div>
+        <div class="buttons">
+            <!-- Row 1 -->
+            <button id="btn-7" class="btn" data-action="digit" data-value="7" role="button" tabindex="0" aria-label="Number 7">7</button>
+            <button id="btn-8" class="btn" data-action="digit" data-value="8" role="button" tabindex="0" aria-label="Number 8">8</button>
+            <button id="btn-9" class="btn" data-action="digit" data-value="9" role="button" tabindex="0" aria-label="Number 9">9</button>
+            <button id="btn-divide" class="btn" data-action="operator" data-value="/" role="button" tabindex="0" aria-label="Divide">/</button>
+
+            <!-- Row 2 -->
+            <button id="btn-4" class="btn" data-action="digit" data-value="4" role="button" tabindex="0" aria-label="Number 4">4</button>
+            <button id="btn-5" class="btn" data-action="digit" data-value="5" role="button" tabindex="0" aria-label="Number 5">5</button>
+            <button id="btn-6" class="btn" data-action="digit" data-value="6" role="button" tabindex="0" aria-label="Number 6">6</button>
+            <button id="btn-multiply" class="btn" data-action="operator" data-value="*" role="button" tabindex="0" aria-label="Multiply">*</button>
+
+            <!-- Row 3 -->
+            <button id="btn-1" class="btn" data-action="digit" data-value="1" role="button" tabindex="0" aria-label="Number 1">1</button>
+            <button id="btn-2" class="btn" data-action="digit" data-value="2" role="button" tabindex="0" aria-label="Number 2">2</button>
+            <button id="btn-3" class="btn" data-action="digit" data-value="3" role="button" tabindex="0" aria-label="Number 3">3</button>
+            <button id="btn-subtract" class="btn" data-action="operator" data-value="-" role="button" tabindex="0" aria-label="Subtract">-</button>
+
+            <!-- Row 4 -->
+            <button id="btn-0" class="btn" data-action="digit" data-value="0" role="button" tabindex="0" aria-label="Number 0">0</button>
+            <button id="btn-decimal" class="btn" data-action="digit" data-value="." role="button" tabindex="0" aria-label="Decimal point">.</button>
+            <button id="btn-clear" class="btn" data-action="clear" role="button" tabindex="0" aria-label="Clear">C</button>
+            <button id="btn-add" class="btn" data-action="operator" data-value="+" role="button" tabindex="0" aria-label="Add">+</button>
+
+            <!-- Row 5 -->
+            <button id="btn-backspace" class="btn" data-action="backspace" role="button" tabindex="0" aria-label="Backspace">⌫</button>
+            <button id="btn-equals" class="btn" data-action="equals" role="button" tabindex="0" aria-label="Equals">=</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+/*
+  Calculator Styles
+  =================
+  This stylesheet defines the visual appearance of the calculator UI.
+  It uses CSS custom properties (variables) for easy theming and
+  maintains a responsive layout with CSS Grid.
+*/
+
+/* Root variables for colors, fonts, and spacing */
+:root {
+  /* Colors */
+  --color-bg: #f5f5f5;               /* Page background */
+  --color-panel: #ffffff;            /* Calculator panel background */
+  --color-display-bg: #222222;       /* Display background */
+  --color-display-text: #00ff00;     /* Display text (green like classic calculators) */
+  --color-button-bg: #e0e0e0;        /* Default button background */
+  --color-button-text: #222222;      /* Default button text */
+  --color-operator-bg: #ff9500;      /* Operator buttons (e.g., +, -, ×, ÷) */
+  --color-operator-text: #ffffff;    /* Operator button text */
+  --color-clear-bg: #d9534f;         /* Clear button background */
+  --color-clear-text: #ffffff;       /* Clear button text */
+  --color-equals-bg: #5cb85c;        /* Equals button background */
+  --color-equals-text: #ffffff;      /* Equals button text */
+  --color-button-hover: #d5d5d5;     /* Hover state for default buttons */
+  --color-button-active: #c0c0c0;    /* Active (pressed) state */
+
+  /* Font */
+  --font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --font-size-base: 1rem;            /* Base font size */
+  --font-size-display: 2.5rem;       /* Display font size */
+  --font-size-button: 1.5rem;        /* Button label size */
+
+  /* Spacing */
+  --spacing-gap: 0.5rem;             /* Gap between buttons */
+  --spacing-panel: 1rem;             /* Padding around the calculator panel */
+  --spacing-display: 0.75rem;        /* Padding inside the display */
+  --border-radius: 0.4rem;           /* Rounded corners */
+}
+
+/* Global resets and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-family);
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Calculator container */
+#calculator {
+  background: var(--color-panel);
+  padding: var(--spacing-panel);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 420px; /* Suitable for desktop */
+}
+
+/* Display */
+.display {
+  background: var(--color-display-bg);
+  color: var(--color-display-text);
+  font-size: var(--font-size-display);
+  padding: var(--spacing-display);
+  text-align: right;
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-gap);
+  overflow-x: auto; /* In case of long numbers */
+  min-height: 3rem; /* Ensure some height when empty */
+}
+
+/* Buttons container – CSS Grid */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-gap);
+}
+
+/* Base button style */
+button.btn {
+  background: var(--color-button-bg);
+  color: var(--color-button-text);
+  font-size: var(--font-size-button);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  user-select: none;
+}
+
+button.btn:hover,
+button.btn:focus {
+  background: var(--color-button-hover);
+  outline: none;
+}
+
+button.btn:active {
+  background: var(--color-button-active);
+  transform: translateY(2px);
+}
+
+/* Operator buttons */
+button[data-action="operator"] {
+  background: var(--color-operator-bg);
+  color: var(--color-operator-text);
+}
+
+button[data-action="operator"]:hover,
+button[data-action="operator"]:focus {
+  background: #e68900; /* Slightly lighter on hover */
+}
+
+button[data-action="operator"]:active {
+  background: #c77700;
+}
+
+/* Clear button */
+button[data-action="clear"] {
+  background: var(--color-clear-bg);
+  color: var(--color-clear-text);
+}
+
+button[data-action="clear"]:hover,
+button[data-action="clear"]:focus {
+  background: #c9302c;
+}
+
+button[data-action="clear"]:active {
+  background: #ac2925;
+}
+
+/* Equals button */
+button[data-action="equals"] {
+  background: var(--color-equals-bg);
+  color: var(--color-equals-text);
+}
+
+button[data-action="equals"]:hover,
+button[data-action="equals"]:focus {
+  background: #4cae4c;
+}
+
+button[data-action="equals"]:active {
+  background: #449d44;
+}
+
+/* Backspace (treated as a regular button but could be styled) */
+button[data-action="backspace"] {
+  background: var(--color-button-bg);
+  color: var(--color-button-text);
+}
+
+/* Layout tweaks for the last row (backspace & equals) */
+button[data-action="backspace"] {
+  grid-column: 1 / span 2; /* Span first two columns */
+}
+
+button[data-action="equals"] {
+  grid-column: 3 / span 2; /* Span last two columns */
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  :root {
+    --font-size-display: 2rem;
+    --font-size-button: 1.75rem;
+    --spacing-gap: 0.4rem;
+    --spacing-panel: 0.8rem;
+    --spacing-display: 0.6rem;
+  }
+
+  #calculator {
+    max-width: 100%;
+    margin: 0 0.5rem;
+  }
+
+  button.btn {
+    padding: 1rem; /* Larger tap targets */
+  }
+}

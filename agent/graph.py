@@ -11,8 +11,8 @@ from agent.tools import write_file, read_file, get_current_directory, list_files
 
 _ = load_dotenv()
 
-set_debug(True)
-set_verbose(True)
+set_debug(False)
+set_verbose(False)
 
 llm = ChatGroq(model="openai/gpt-oss-120b")
 
@@ -59,15 +59,27 @@ def coder_agent(state: dict) -> dict:
     user_prompt = (
         f"Task: {current_task.task_description}\n"
         f"File: {current_task.filepath}\n"
-        f"Existing content:\n{existing_content}\n"
+        f"Existing content:\n{existing_content}\n\n"
+        "Available tools:\n"
+        "- read_file(path: str) -> str: Read a file's content\n"
+        "- write_file(path: str, content: str) -> str: Write content to a file\n"
+        "- list_files(directory: str = '.') -> str: List files in a directory\n"
+        "- get_current_directory() -> str: Get current directory\n\n"
         "Use write_file(path, content) to save your changes."
     )
 
     coder_tools = [read_file, write_file, list_files, get_current_directory]
     react_agent = create_react_agent(llm, coder_tools)
 
-    react_agent.invoke({"messages": [{"role": "system", "content": system_prompt},
-                                     {"role": "user", "content": user_prompt}]})
+    try:
+        react_agent.invoke({
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ]
+        })
+    except Exception as e:
+        print(f"Error in coder_agent at step {coder_state.current_step_idx}: {e}")
 
     coder_state.current_step_idx += 1
     return {"coder_state": coder_state}
@@ -89,7 +101,3 @@ graph.add_conditional_edges(
 
 graph.set_entry_point("planner")
 agent = graph.compile()
-if __name__ == "__main__":
-    result = agent.invoke({"user_prompt": "Build a colourful modern todo app in html css and js"},
-                          {"recursion_limit": 100})
-    print("Final State:", result)
